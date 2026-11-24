@@ -1,3 +1,4 @@
+import { saiExploreUrl } from '@/libs/saiExplore';
 import { useBlockchain } from '@/stores';
 import { createRouter, createWebHistory } from 'vue-router';
 // @ts-ignore
@@ -10,8 +11,17 @@ const router = createRouter({
   routes: [...setupLayouts(routes)],
 });
 
-//update current blockchain
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
+  // Firebase handles direct requests. Send in-app links to the same destination.
+  if (from.matched.length) {
+    const destination = saiExploreUrl(to.path);
+    if (destination) {
+      const suffix = to.fullPath.slice(to.path.length);
+      window.location.assign(destination + suffix);
+      return false;
+    }
+  }
+
   const { chain } = to.params;
   if (chain) {
     const blockchain = useBlockchain();

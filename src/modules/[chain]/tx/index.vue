@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { computed, ref } from '@vue/reactivity';
-import { useBaseStore, useBlockchain, useFormatter } from '@/stores';
-import type { PaginatedTxs } from '@/types';
+import { ref } from '@vue/reactivity';
+import { SAI_MAINNET_CHAIN, SAI_TX_HASH } from '@/libs/saiExplore';
+import { useBaseStore, useFormatter } from '@/stores';
 import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
 const props = defineProps(['chain']);
@@ -9,19 +9,17 @@ const vueRouters = useRouter();
 const tab = ref('recent');
 
 const base = useBaseStore();
-const chainStore = useBlockchain();
-
 const format = useFormatter();
-const hashReg = /^[A-Z\d]{64}$/;
 const hash = ref('');
-const current = chainStore?.current?.chainName || '';
 onMounted(() => {
   tab.value = String(vueRouters.currentRoute.value.query.tab || 'recent');
   console.log(tab.value);
 });
 function search() {
-  if (hashReg.test(hash.value)) {
-    vueRouters.push({ path: `/${current}/tx/${hash.value}` });
+  const hashReg = props.chain === SAI_MAINNET_CHAIN ? SAI_TX_HASH : /^[A-Z\d]{64}$/;
+  const value = hash.value.trim();
+  if (hashReg.test(value)) {
+    vueRouters.push({ path: `/${props.chain}/tx/${value}` });
   }
 }
 </script>
@@ -91,6 +89,7 @@ function search() {
             class="input input-bordered"
             placeholder="Search by Tx Hash"
             @blur="search"
+            @keydown.enter="search"
           />
         </div>
       </div>
