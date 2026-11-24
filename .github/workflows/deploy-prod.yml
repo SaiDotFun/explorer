@@ -9,12 +9,12 @@ jobs:
   deploy_live_website:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set Node.js 16.x
-        uses: actions/setup-node@v3
+      - name: Set Node.js 22.x
+        uses: actions/setup-node@v4
         with:
-          node-version: 'lts/gallium'
+          node-version: '22'
           cache: 'yarn'
 
       - name: Run install
@@ -33,4 +33,4 @@ jobs:
           projectId: nibiru-chain
           channelId: live
           target: explorer
-          firebaseToolsVersion: '12.9.1'
+          firebaseToolsVersion: '14.8.0'
