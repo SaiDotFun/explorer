@@ -7,6 +7,23 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "regex": "^/cataclysm-1/tx/((?:0[xX])?[0-9A-Fa-f]{64})/?$",
+        "destination": "https://sai.fun/explore/tx/:1",
+        "type": 301
+      },
+      {
+        "regex": "^/txs/([0-9A-Fa-f]{64})/?$",
+        "destination": "https://sai.fun/explore/tx/:1",
+        "type": 301
+      },
+      {
+        "regex": "^/cataclysm-1/block/(0*[1-9][0-9]{0,17})/?$",
+        "destination": "https://sai.fun/explore/block/:1",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "**",
