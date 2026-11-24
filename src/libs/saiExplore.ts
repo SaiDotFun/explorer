@@ -1,6 +1,7 @@
 export const SAI_MAINNET_CHAIN = 'cataclysm-1';
 export const SAI_TX_HASH = /^(?:0x)?[0-9a-f]{64}$/i;
-export const SAI_BLOCK_HEIGHT = /^[1-9][0-9]*$/;
+// Keep heights with 19 or more significant digits on the legacy explorer.
+const SAI_BLOCK_HEIGHT = /^0*[1-9][0-9]{0,17}$/;
 
 export function saiExploreUrl(path: string): string | undefined {
   const parts = path.split('/');

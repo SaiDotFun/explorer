@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { SAI_BLOCK_HEIGHT, SAI_MAINNET_CHAIN, SAI_TX_HASH } from '@/libs/saiExplore';
+import { SAI_MAINNET_CHAIN, SAI_TX_HASH } from '@/libs/saiExplore';
 import { useBlockchain } from '@/stores';
 const vueRouters = useRouter();
 const blockStore = useBlockchain();
@@ -32,7 +32,7 @@ function confirm() {
   }
   const current = blockStore?.current?.chainName || '';
   const isSaiMainnet = current === SAI_MAINNET_CHAIN;
-  const height = isSaiMainnet ? SAI_BLOCK_HEIGHT : /^\d+$/;
+  const height = /^\d+$/;
   const txhash = isSaiMainnet ? SAI_TX_HASH : /^[A-Z\d]{64}$/;
   const addr = /^[a-z\d]+1[a-z\d]{38,58}$/;
   const routeParams = vueRouters?.currentRoute?.value;

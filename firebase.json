@@ -19,7 +19,7 @@
         "type": 301
       },
       {
-        "regex": "^/cataclysm-1/block/([1-9][0-9]*)/?$",
+        "regex": "^/cataclysm-1/block/(0*[1-9][0-9]{0,17})/?$",
         "destination": "https://sai.fun/explore/block/:1",
         "type": 301
       }
